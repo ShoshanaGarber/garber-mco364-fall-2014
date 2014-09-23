@@ -29,16 +29,8 @@ public class OneConnection extends Thread {
 				System.out.println(line);
 			}
 			OutputStream out = socket.getOutputStream();
-			String response;
-			if (counter == 1) {
-				response = "<h2>This is the " + counter + "st request</h2>";
-			} else if (counter == 2) {
-				response = "<h2>This is the " + counter + "nd request</h2>";
-			} else if (counter == 3) {
-				response = "<h2>This is the " + counter + "rd request</h2>";
-			} else {
-				response = "<h2>This is the " + counter + "th request</h2>";
-			}
+			String response = "<h2>This is the " + counter + "th request</h2>";
+			
 			out.write("HTTP/1.1 200 OK\n".getBytes());
 			out.write("Content-Type: text/html; charset=utf-8\n".getBytes());
 			out.write(("Content-Length: " + response.length() + "\n\n").getBytes());
