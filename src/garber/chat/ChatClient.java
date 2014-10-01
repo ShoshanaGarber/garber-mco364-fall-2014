@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 public class ChatClient {
 
 	public ChatClient(String chatText) throws UnknownHostException,  IOException{
-		Socket socket = new Socket("192.168.117.97", 8080);
+		Socket socket = new Socket("192.168.117.107", 9097);
 		OutputStream output = socket.getOutputStream();
 		output.write(chatText.getBytes());
 		output.flush();
