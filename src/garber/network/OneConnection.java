@@ -30,7 +30,6 @@ public class OneConnection extends Thread {
 			}
 			OutputStream out = socket.getOutputStream();
 			String response = "<h2>This is the " + counter + "th request</h2>";
-			
 			out.write("HTTP/1.1 200 OK\n".getBytes());
 			out.write("Content-Type: text/html; charset=utf-8\n".getBytes());
 			out.write(("Content-Length: " + response.length() + "\n\n").getBytes());
