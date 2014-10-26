@@ -1,14 +1,12 @@
 package garber.chat;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import javafx.scene.control.ScrollBar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
