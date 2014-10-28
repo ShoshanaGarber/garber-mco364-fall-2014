@@ -4,8 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.net.Socket;
+import java.net.ServerSocket;
 import java.net.UnknownHostException;
+
 
 
 import javax.swing.JButton;
@@ -14,15 +15,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class ChatBox extends JFrame {
+public class ChatBoxServer extends JFrame {
 
 	private JTextArea area;
 	private JTextField field;
 	private JButton button;
-	private ChatClient chatClient;
+	private ChatServer chatServer;
 	private JScrollPane scrollBar;
 
-	public ChatBox() {
+	public ChatBoxServer() {
 		this.setTitle("Chat");
 		this.setSize(600, 600);
 		this.setLocationRelativeTo(null);
@@ -40,7 +41,7 @@ public class ChatBox extends JFrame {
 		
 		
 		try {
-			chatClient = new ChatClient();
+			chatServer = new ChatServer();
 		} catch (UnknownHostException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -57,7 +58,7 @@ public class ChatBox extends JFrame {
 				area.append("\n" + field.getText());
 				
 				try {
-					chatClient.chatLine(field.getText());
+					chatServer.chatLine(field.getText());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -80,8 +81,8 @@ public class ChatBox extends JFrame {
 	public void addClientText(String line) {
 		area.append("\n" + line);
 	}
-	public Socket getClientSocket(){
-		return chatClient.getSocket();
+	public ServerSocket getSocket(){
+		return chatServer.getServerSocket();
 	}
 	
 
