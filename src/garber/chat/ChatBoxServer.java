@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.UnknownHostException;
+
 
 
 
@@ -78,11 +80,11 @@ public class ChatBoxServer extends JFrame {
 		this.setVisible(true);
 	}
 
-	public void addClientText(String line) {
+	public void addServerText(String line) {
 		area.append("\n" + line);
 	}
-	public ServerSocket getSocket(){
-		return chatServer.getServerSocket();
+	public Socket getSocket(){
+		return chatServer.getSocket();
 	}
 	
 
