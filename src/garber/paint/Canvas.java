@@ -1,7 +1,9 @@
 package garber.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
@@ -10,12 +12,10 @@ import javax.swing.JComponent;
 
 public class Canvas extends JComponent {
 
-	int x;
-	int y;
-	int endx;
-	int endy;
-	int prevx;
-	int prevy;
+	Integer x;
+	Integer y;
+	
+	private Color color;
 	BufferedImage image;
 
 	public Canvas() {
@@ -31,21 +31,39 @@ public class Canvas extends JComponent {
 	}
 
 	public void setPoint(int endx, int endy) {
-
-		prevx = x;
-		prevy = y;
+		
+		
+		if (x != null && y != null) {
+			endx = x;
+			endy = y;
+		}
 
 		this.x = endx;
 		this.y = endy;
 
 		Graphics g = image.getGraphics();
-		g.setColor(Color.BLACK);
-		if (x == prevx + 1 && y == prevy + 1) {
-			g.fillOval(x, y, 10, 10);
-		} else {
-			g.drawLine(prevx+1, prevy+1, x, y);
-		}
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(color);
 
+		if (x != null && y != null) {
+
+			if (x == endx + 1 && y == endy + 1) {
+
+				g2.fillOval(x, y, 5, 5);
+			} else {
+				g2.setStroke(new BasicStroke(5));
+				g2.drawLine(endx + 1, endy + 1, x, y);
+			}
+		} else {
+			g2.fillOval(x, y, 5, 5);
+		}
+		
+
+	}
+
+	public void setColor(Color color) {
+
+		this.color = color;
 	}
 
 }
