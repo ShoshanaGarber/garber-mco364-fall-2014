@@ -12,9 +12,11 @@ import javax.swing.JComponent;
 
 public class Canvas extends JComponent {
 
-	Integer x;
-	Integer y;
-	
+	private Integer x;
+	private Integer y;
+	private Integer prevx;
+	private Integer prevy;
+
 	private Color color;
 	BufferedImage image;
 
@@ -30,12 +32,11 @@ public class Canvas extends JComponent {
 		g.drawImage(image, 0, 0, null);
 	}
 
-	public void setPoint(int endx, int endy) {
-		
-		
+	public void setPoint(Integer endx, Integer endy) {
+
 		if (x != null && y != null) {
-			endx = x;
-			endy = y;
+			prevx = x;
+			prevy = y;
 		}
 
 		this.x = endx;
@@ -45,25 +46,30 @@ public class Canvas extends JComponent {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(color);
 
-		if (x != null && y != null) {
+		if (prevx != null && prevy != null) {
+			if (x.equals(prevx + 1) && y.equals(prevy + 1)) {
+				g.fillOval(x, y, 5, 5);
 
-			if (x == endx + 1 && y == endy + 1) {
-
-				g2.fillOval(x, y, 5, 5);
 			} else {
+
 				g2.setStroke(new BasicStroke(5));
-				g2.drawLine(endx + 1, endy + 1, x, y);
+				g2.drawLine(prevx + 1, prevy + 1, x, y);
 			}
 		} else {
 			g2.fillOval(x, y, 5, 5);
 		}
-		
 
 	}
 
 	public void setColor(Color color) {
 
 		this.color = color;
+	}
+
+	public void clearPoint() {
+		this.x = null;
+		this.y = null;
+		
 	}
 
 }
