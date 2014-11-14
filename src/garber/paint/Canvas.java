@@ -16,13 +16,15 @@ public class Canvas extends JComponent {
 	private Integer y;
 	private Integer prevx;
 	private Integer prevy;
+	private Graphics2D g2;
+	private static BasicStroke stroke;
 
 	private Color color;
 	BufferedImage image;
 
 	public Canvas() {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-
+		stroke = new BasicStroke(5);
 	}
 
 	@Override
@@ -43,16 +45,17 @@ public class Canvas extends JComponent {
 		this.y = endy;
 
 		Graphics g = image.getGraphics();
-		Graphics2D g2 = (Graphics2D) g;
+		g2 = (Graphics2D) g;
 		g2.setColor(color);
+		g2.setStroke(stroke);
 
 		if (prevx != null && prevy != null) {
+
 			if (x.equals(prevx + 1) && y.equals(prevy + 1)) {
 				g.fillOval(x, y, 5, 5);
 
 			} else {
 
-				g2.setStroke(new BasicStroke(5));
 				g2.drawLine(prevx + 1, prevy + 1, x, y);
 			}
 		} else {
@@ -69,7 +72,29 @@ public class Canvas extends JComponent {
 	public void clearPoint() {
 		this.x = null;
 		this.y = null;
-		
+		this.prevx = null;
+		this.prevy = null;
+
+	}
+
+	public void setStrokeWidth(int wheelRotation) {
+
+		if (wheelRotation < 0) {
+			if ((stroke.getLineWidth() - 1) > 0) {
+				stroke = new BasicStroke(stroke.getLineWidth() - 1);
+				g2.setStroke(stroke);
+			} else {
+				g2.setStroke(stroke);
+			}
+		} else {
+			stroke = new BasicStroke(stroke.getLineWidth() + 1);
+			g2.setStroke(stroke);
+		}
+
+	}
+
+	public float getStrokeWidth() {
+		return stroke.getLineWidth();
 	}
 
 }
