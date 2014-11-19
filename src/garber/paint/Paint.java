@@ -58,7 +58,8 @@ public class Paint extends JFrame{
 		
 		
 		
-		DrawListener listener = new DrawListener(canvas);
+		DrawPencilListener listener = new DrawPencilListener(canvas);
+		DrawRectangleListener rectListenr = new DrawRectangleListener(canvas);
 		canvas.addMouseMotionListener(listener);
 		
 		MouseWheelListener mouseWheelListener = new MouseWheelListener(){

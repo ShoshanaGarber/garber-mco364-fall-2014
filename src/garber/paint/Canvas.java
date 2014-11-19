@@ -4,8 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
+
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
@@ -17,14 +16,16 @@ public class Canvas extends JComponent {
 	private Integer prevx;
 	private Integer prevy;
 	private Graphics2D g2;
-	private static BasicStroke stroke;
+	private BasicStroke stroke;
 
 	private Color color;
-	BufferedImage image;
+	private BufferedImage image;
+	private DrawListener listener;
 
 	public Canvas() {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		stroke = new BasicStroke(5);
+
 	}
 
 	@Override
@@ -32,6 +33,10 @@ public class Canvas extends JComponent {
 
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
+
+		listener.drawPreview((Graphics2D) g);// draws contents of image to
+												// window for rectangle,
+												// ovals...
 	}
 
 	public void setPoint(Integer endx, Integer endy) {
@@ -47,6 +52,7 @@ public class Canvas extends JComponent {
 		Graphics g = image.getGraphics();
 		g2 = (Graphics2D) g;
 		g2.setColor(color);
+		stroke = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 		g2.setStroke(stroke);
 
 		if (prevx != null && prevy != null) {
@@ -81,13 +87,13 @@ public class Canvas extends JComponent {
 
 		if (wheelRotation < 0) {
 			if ((stroke.getLineWidth() - 1) > 0) {
-				stroke = new BasicStroke(stroke.getLineWidth() - 1);
+				stroke = new BasicStroke(stroke.getLineWidth() - 1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 				g2.setStroke(stroke);
 			} else {
 				g2.setStroke(stroke);
 			}
 		} else {
-			stroke = new BasicStroke(stroke.getLineWidth() + 1);
+			stroke = new BasicStroke(stroke.getLineWidth() + 1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 			g2.setStroke(stroke);
 		}
 
