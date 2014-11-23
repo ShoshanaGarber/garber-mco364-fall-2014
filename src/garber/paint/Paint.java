@@ -14,6 +14,7 @@ import java.awt.event.MouseWheelListener;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -25,8 +26,8 @@ public class Paint extends JFrame{
 	
 
 	private JButton button;
-	private JTextArea textArea;
-	private JTextArea textArea2;
+	private JLabel label;
+	private JLabel label2;
 	private Canvas canvas;
 	
 	
@@ -46,15 +47,15 @@ public class Paint extends JFrame{
 		JPanel panel = new JPanel();
 		
 		
-		button = new JButton("Pick to Change Background");
-		textArea = new JTextArea("Stroke Width");
-		textArea2 = new JTextArea(" " + canvas.getStrokeWidth());
+		button = new JButton("Pick to Change Color");
+		label = new JLabel("Stroke Width");
+		label2 = new JLabel(" " + canvas.getStrokeWidth());
 		
 	
 		add(canvas, BorderLayout.CENTER);
 		add(panel, BorderLayout.SOUTH);
-		panel.add(textArea, BorderLayout.EAST);
-		panel.add(textArea2, BorderLayout.EAST);
+		panel.add(label, BorderLayout.EAST);
+		panel.add(label2, BorderLayout.EAST);
 		
 		
 		
@@ -67,7 +68,7 @@ public class Paint extends JFrame{
 			@Override
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				canvas.setStrokeWidth(e.getWheelRotation());
-				textArea2.setText(" " + canvas.getStrokeWidth());
+				label2.setText(" " + canvas.getStrokeWidth());
 				
 			}			
 		};
@@ -79,12 +80,12 @@ public class Paint extends JFrame{
 			
 		      public void actionPerformed(ActionEvent actionEvent) {
 		    	  
-		        Color initialBackground = button.getBackground();
-		        Color background = JColorChooser.showDialog(null,
-		            "JColorChooser Sample", initialBackground);
-		        if (background != null) {
-		          button.setBackground(background);
-		          canvas.setColor(background);
+		        Color initialColor = button.getBackground();
+		        Color color = JColorChooser.showDialog(null,
+		            "JColorChooser Sample", initialColor);
+		        if (color != null) {
+		          button.setBackground(color);
+		          canvas.setColor(color);
 		        }
 		      }
 		    };
