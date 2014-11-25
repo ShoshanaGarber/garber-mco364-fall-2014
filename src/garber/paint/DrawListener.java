@@ -8,6 +8,7 @@ public interface DrawListener extends MouseListener, MouseMotionListener {
 
 	// any method that implements DrawListener must include all methods of mouseListener
 	// and mouseMotionListener
+
 	
 	void drawPreview(Graphics2D g);
 	

@@ -1,10 +1,11 @@
 package garber.paint;
 
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class DrawRectangleListener implements MouseMotionListener, MouseListener{
+public class DrawRectangleListener implements DrawListener{
 	private Canvas canvas;
 	int firstx;
 	int firsty;
@@ -20,7 +21,8 @@ public class DrawRectangleListener implements MouseMotionListener, MouseListener
 	public void mouseDragged(MouseEvent e) {
 		endx = e.getX();
 		endy = e.getY();
-		canvas.repaint();
+		
+		
 	}
 
 	@Override
@@ -32,7 +34,7 @@ public class DrawRectangleListener implements MouseMotionListener, MouseListener
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+
 		firstx = e.getX();
 		firsty = e.getY();
 	}
@@ -53,16 +55,29 @@ public class DrawRectangleListener implements MouseMotionListener, MouseListener
 
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mousePressed(MouseEvent e) {
+		firstx = e.getX();
+		firsty = e.getY();
 		
 	}
 
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		canvas.clearPoint();
+	public void mouseReleased(MouseEvent e) {
+		endx = e.getX();
+		endy= e.getY();
+		//canvas.repaint();
+	}
+
+
+	@Override
+	public void drawPreview(Graphics2D g) {
+		int width, height;
+		
+        width = Math.abs(firstx - endx);
+        height = Math.abs(firsty - endy);
+		g.drawRect(firstx,firsty,width,height);
+		
 	}
 	
 

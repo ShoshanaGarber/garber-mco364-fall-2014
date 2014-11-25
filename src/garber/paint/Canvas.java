@@ -24,8 +24,9 @@ public class Canvas extends JComponent {
 
 	public Canvas() {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		stroke = new BasicStroke(5);
-
+		stroke = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+		listener = new DrawPencilListener(this);
+		
 	}
 
 	@Override
@@ -33,10 +34,9 @@ public class Canvas extends JComponent {
 
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
-
 		listener.drawPreview((Graphics2D) g);// draws contents of image to
-												// window for rectangle,
-												// ovals...
+		// window for rectangle,
+		// ovals...
 	}
 
 	public void setPoint(Integer endx, Integer endy) {
@@ -52,7 +52,6 @@ public class Canvas extends JComponent {
 		Graphics g = image.getGraphics();
 		g2 = (Graphics2D) g;
 		g2.setColor(color);
-		stroke = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 		g2.setStroke(stroke);
 
 		if (prevx != null && prevy != null) {
@@ -101,6 +100,16 @@ public class Canvas extends JComponent {
 
 	public float getStrokeWidth() {
 		return stroke.getLineWidth();
+	}
+	
+	public void clearCanvas(){
+		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB); 
+		this.x = null;
+		this.y = null;
+		this.prevx = null;
+		this.prevy = null;
+		repaint();
+
 	}
 
 }
