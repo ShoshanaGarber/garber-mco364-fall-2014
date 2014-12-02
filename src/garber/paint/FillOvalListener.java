@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 public class FillOvalListener implements DrawListener{
 	
 	private Canvas canvas;
-	private Graphics2D g2;
 	private Integer firstx;
 	private Integer firsty;
 	private Integer endx;
@@ -39,7 +38,7 @@ public class FillOvalListener implements DrawListener{
 	public void mousePressed(MouseEvent e) {
 		firstx = e.getX();
 		firsty = e.getY();
-        canvas.repaint();
+
 		
 	}
 
@@ -51,19 +50,13 @@ public class FillOvalListener implements DrawListener{
 		
 	}
 
-	private void drawOval() {
-		
-		canvas.setGraphics();
-		Graphics2D g2 = canvas.getGraphics();
 
-		g2.fillOval(firstx, firsty, endx, endy);
-		canvas.repaint();
-		
-	}
 
 	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseDragged(MouseEvent e) {
+		endx = e.getX();
+		endy = e.getY();
+        canvas.repaint();
 		
 	}
 
@@ -72,10 +65,23 @@ public class FillOvalListener implements DrawListener{
 		// TODO Auto-generated method stub
 		
 	}
+	private void drawOval() {
+		
+		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
+		canvas.setGraphics(g2);
+		
+		int width = Math.abs(endx - firstx);
+		int height = Math.abs(endy - firsty);
+		g2.fillOval(firstx, firsty, width, height);
+		canvas.repaint();
+	}
 
 	@Override
 	public void drawPreview(Graphics2D g) {
-		this.g2 = g;
-		drawOval();
+		canvas.setGraphics(g);
+		
+		int width = Math.abs(endx - firstx);
+		int height = Math.abs(endy - firsty);
+		g.fillOval(firstx, firsty, width, height);
 	}
 }

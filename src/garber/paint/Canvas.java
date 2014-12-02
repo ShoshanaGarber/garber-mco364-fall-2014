@@ -17,46 +17,46 @@ public class Canvas extends JComponent {
 	private Color color;
 	private BufferedImage image;
 	private DrawListener listener;
-	
+
 	public Canvas() {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		stroke = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-		
+		setColor(Color.BLACK);
+
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		
+
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
-		if(listener!=null){
-		listener.drawPreview(g2);
+		if (listener != null) {
+			listener.drawPreview((Graphics2D)g);
 		}// draws contents of image to
-		// window for rectangle,
-		// ovals...
+			// window for rectangle,
+			// ovals...
 	}
 
-	public void setGraphics() {
-		Graphics g = getImage().getGraphics();
-		g2 = (Graphics2D) g;
-		g2.setColor(getColor());
-		g2.setStroke(getStroke());
+	public void setGraphics(Graphics2D g) {
 	
+		g.setColor(getColor());
+		g.setStroke(getStroke());
+
 	}
-	
+
 	public void setColor(Color color) {
 
 		this.color = color;
 	}
-	public Color getColor(){
+
+	public Color getColor() {
 		return color;
 	}
-
 
 	public void setStrokeWidth(int wheelRotation) {
 		Graphics g = image.getGraphics();
 		g2 = (Graphics2D) g;
-		
+
 		if (wheelRotation < 0) {
 			if ((stroke.getLineWidth() - 1) > 0) {
 				stroke = new BasicStroke(stroke.getLineWidth() - 1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
@@ -70,37 +70,37 @@ public class Canvas extends JComponent {
 		}
 
 	}
-	public BasicStroke getStroke(){
+
+	public BasicStroke getStroke() {
 		return stroke;
 	}
 
 	public float getStrokeWidth() {
 		return stroke.getLineWidth();
 	}
-	
-	public void clearCanvas(){
-		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB); 
+
+	public void clearCanvas() {
+		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		repaint();
 
 	}
-	
-	public BufferedImage getImage(){
+
+	public BufferedImage getImage() {
 		return image;
 	}
 
 	public void changeDrawListener(DrawListener listener) {
 		removeMouseMotionListener(this.listener);
 		removeMouseListener(this.listener);
-		
+
 		this.listener = listener;
 		addMouseMotionListener(listener);
 		addMouseListener(listener);
-		
+
 	}
-	
-	public Graphics2D getGraphics(){
+
+	public Graphics2D getGraphics() {
 		return g2;
 	}
 
-	
 }

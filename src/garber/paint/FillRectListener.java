@@ -1,16 +1,15 @@
 package garber.paint;
 
-import java.awt.Graphics;
+
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
-public class FillRectListener  implements DrawListener {
+public class FillRectListener implements DrawListener {
 	private Canvas canvas;
 	private Integer firstx;
 	private Integer firsty;
 	private Integer endx;
 	private Integer endy;
-	private Graphics2D g2;
 
 	public FillRectListener(Canvas canvas) {
 		this.canvas = canvas;
@@ -20,8 +19,7 @@ public class FillRectListener  implements DrawListener {
 	public void mouseDragged(MouseEvent e) {
 		endx = e.getX();
 		endy = e.getY();
-		drawRec();
-        canvas.repaint();
+		canvas.repaint();
 	}
 
 	@Override
@@ -31,9 +29,7 @@ public class FillRectListener  implements DrawListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		firstx = e.getX();
-		firsty = e.getY();
-		canvas.repaint();
+		
 	}
 
 	@Override
@@ -52,7 +48,6 @@ public class FillRectListener  implements DrawListener {
 	public void mousePressed(MouseEvent e) {
 		firstx = e.getX();
 		firsty = e.getY();
-		canvas.repaint();
 
 	}
 
@@ -61,33 +56,28 @@ public class FillRectListener  implements DrawListener {
 		endx = e.getX();
 		endy = e.getY();
 		drawRec();
-		
 
 	}
 
-	public void clearPoint() {
-		this.firstx = null;
-		this.firsty = null;
-		this.endx = null;
-		this.endy = null;
+	public void drawRec() {
 
-	}
-	
-	public void drawRec(){
-		
-		canvas.setGraphics();
-		Graphics2D g2 = canvas.getGraphics();
+		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
+		canvas.setGraphics(g2);
 
-		int width = Math.abs(firstx - endx);
-		int height = Math.abs(firsty - endy);
+		int width = Math.abs(endx - firstx);
+		int height = Math.abs(endy - firsty);
 		g2.fillRect(firstx, firsty, width, height);
 		canvas.repaint();
 	}
 
 	@Override
 	public void drawPreview(Graphics2D g) {
-        this.g2 = g;
-		drawRec();
+		
+		canvas.setGraphics(g);
+
+		int width = Math.abs(endx - firstx);
+		int height = Math.abs(endy - firsty);
+		g.fillRect(firstx, firsty, width, height);
 
 	}
 

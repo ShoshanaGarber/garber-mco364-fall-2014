@@ -1,6 +1,5 @@
 package garber.paint;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
@@ -10,7 +9,6 @@ public class DrawRectangleListener implements DrawListener {
 	private Integer firsty;
 	private Integer endx;
 	private Integer endy;
-	private Graphics2D g2;
 
 	public DrawRectangleListener(Canvas canvas) {
 		this.canvas = canvas;
@@ -72,8 +70,9 @@ public class DrawRectangleListener implements DrawListener {
 	
 	public void drawRec(){
 		
-		canvas.setGraphics();
-		Graphics2D g2 = canvas.getGraphics();
+		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
+		canvas.setGraphics(g2);
+		
 
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
@@ -83,9 +82,13 @@ public class DrawRectangleListener implements DrawListener {
 
 	@Override
 	public void drawPreview(Graphics2D g) {
+		
+		canvas.setGraphics(g);
+		
+		int width = Math.abs(endx - firstx);
+		int height = Math.abs(endy - firsty);
+		g.drawRect(firstx, firsty, width, height);
 
-		this.g2 =g;
-		drawRec();
 
 	}
 

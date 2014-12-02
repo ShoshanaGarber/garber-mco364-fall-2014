@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 public class DrawLineListener implements DrawListener{
 	
 	private Canvas canvas;
-	private Graphics2D g2;
 	private int y2;
 	private int x1;
 	private int y1;
@@ -36,7 +35,7 @@ public class DrawLineListener implements DrawListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stubx1 = e.getX();
+		x1 = e.getX();
 		y1 = e.getY();
 		
 	}
@@ -52,7 +51,9 @@ public class DrawLineListener implements DrawListener{
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-	
+		x2 = e.getX();
+		y2 = e.getY();
+		canvas.repaint();
 		
 	}
 
@@ -64,15 +65,18 @@ public class DrawLineListener implements DrawListener{
 	
 	public void drawLine(){
 		
-		canvas.setGraphics();
-		Graphics2D g2 = canvas.getGraphics();
+		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
+		canvas.setGraphics(g2);
+		
 		g2.drawLine(x1, y1, x2, y2);
 		canvas.repaint();
 	}
 
 	@Override
 	public void drawPreview(Graphics2D g) {
-		this.g2 = g;
+		canvas.setGraphics(g);
+		
+		g.drawLine(x1, y1, x2, y2);
 		
 	}
 

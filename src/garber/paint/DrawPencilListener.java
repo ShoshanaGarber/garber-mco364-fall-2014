@@ -1,6 +1,5 @@
 package garber.paint;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
@@ -11,7 +10,7 @@ public class DrawPencilListener implements DrawListener{
 	private Integer y;
 	private Integer prevx;
 	private Integer prevy;
-	private Graphics2D g2;
+	
 
 	public DrawPencilListener(Canvas canvas) {
 		this.canvas = canvas;
@@ -27,8 +26,8 @@ public class DrawPencilListener implements DrawListener{
 		this.x = endx;
 		this.y = endy;
 
-		canvas.setGraphics();
-		Graphics2D g2 = canvas.getGraphics();
+		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
+		canvas.setGraphics(g2);
 
 		if (prevx != null && prevy != null) {
 
@@ -102,7 +101,7 @@ public class DrawPencilListener implements DrawListener{
 
 	@Override
 	public void drawPreview(Graphics2D g) {
-		this.g2 = g;
+		
 		
 	}
 	
