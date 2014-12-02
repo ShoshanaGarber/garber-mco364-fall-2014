@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
-public class DrawRectangleListener implements DrawListener {
+public class FillRectListener  implements DrawListener {
 	private Canvas canvas;
 	private Integer firstx;
 	private Integer firsty;
@@ -12,7 +12,7 @@ public class DrawRectangleListener implements DrawListener {
 	private Integer endy;
 	private Graphics2D g2;
 
-	public DrawRectangleListener(Canvas canvas) {
+	public FillRectListener(Canvas canvas) {
 		this.canvas = canvas;
 	}
 
@@ -20,6 +20,7 @@ public class DrawRectangleListener implements DrawListener {
 	public void mouseDragged(MouseEvent e) {
 		endx = e.getX();
 		endy = e.getY();
+		drawRec();
         canvas.repaint();
 	}
 
@@ -30,7 +31,9 @@ public class DrawRectangleListener implements DrawListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+		firstx = e.getX();
+		firsty = e.getY();
+		canvas.repaint();
 	}
 
 	@Override
@@ -49,7 +52,7 @@ public class DrawRectangleListener implements DrawListener {
 	public void mousePressed(MouseEvent e) {
 		firstx = e.getX();
 		firsty = e.getY();
-		
+		canvas.repaint();
 
 	}
 
@@ -75,16 +78,15 @@ public class DrawRectangleListener implements DrawListener {
 		canvas.setGraphics();
 		Graphics2D g2 = canvas.getGraphics();
 
-		int width = Math.abs(endx - firstx);
-		int height = Math.abs(endy - firsty);
-		g2.drawRect(firstx, firsty, width, height);
+		int width = Math.abs(firstx - endx);
+		int height = Math.abs(firsty - endy);
+		g2.fillRect(firstx, firsty, width, height);
 		canvas.repaint();
 	}
 
 	@Override
 	public void drawPreview(Graphics2D g) {
-
-		this.g2 =g;
+        this.g2 = g;
 		drawRec();
 
 	}

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
@@ -27,7 +29,6 @@ public class Paint extends JFrame {
 	private JLabel label2;
 	private Canvas canvas;
 	private JPanel panel;
-
 
 	public Paint() {
 		this.setSize(800, 600);
@@ -79,7 +80,7 @@ public class Paint extends JFrame {
 				}
 			}
 		};
-		
+
 		ActionListener clearListener = new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -92,20 +93,38 @@ public class Paint extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				canvas.removeAll();
+				
+
 				JButton buttonClicked = (JButton) e.getSource();
 
 				if (buttonClicked.equals(drawButton)) {
-					DrawPencilListener drawPencilListener = new DrawPencilListener(canvas);
-					canvas.addMouseMotionListener(drawPencilListener);
+					DrawListener drawPencilListener = new DrawPencilListener(canvas);
+					canvas.changeDrawListener(drawPencilListener);			
 
 				} else if (buttonClicked.equals(rectButton)) {
-					DrawRectangleListener rectListener = new DrawRectangleListener(canvas);
-					canvas.addMouseMotionListener(rectListener);
+					DrawListener rectListener = new DrawRectangleListener(canvas);
+					canvas.changeDrawListener(rectListener);
 
 				} else if (buttonClicked.equals(ovalButton)) {
-					OvalListener ovalListener = new OvalListener(canvas);
-					canvas.addMouseMotionListener(ovalListener);
+					DrawListener ovalListener = new OvalListener(canvas);
+					canvas.changeDrawListener(ovalListener);
+					
+
+				}else if (buttonClicked.equals(lineButton)) {
+					DrawListener lineListener = new DrawLineListener(canvas);
+					canvas.changeDrawListener(lineListener);
+					
+
+				}else if (buttonClicked.equals(fillrectButton)) {
+					DrawListener fillRectListener = new FillRectListener(canvas);
+					canvas.changeDrawListener(fillRectListener);
+					
+					
+				}else if (buttonClicked.equals(fillovalButton)) {
+					DrawListener fillOvalListener = new FillOvalListener(canvas);
+					canvas.changeDrawListener(fillOvalListener);
+					
+
 				}
 			}
 
@@ -116,6 +135,10 @@ public class Paint extends JFrame {
 		rectButton.addActionListener(drawListener);
 		ovalButton.addActionListener(drawListener);
 		clearButton.addActionListener(clearListener);
+		lineButton.addActionListener(drawListener);
+		fillovalButton.addActionListener(drawListener);
+		fillrectButton.addActionListener(drawListener);	
+		
 		panel.add(colorButton, BorderLayout.SOUTH);
 		panel.add(drawButton, BorderLayout.WEST);
 		panel.add(ovalButton, BorderLayout.EAST);
@@ -125,6 +148,7 @@ public class Paint extends JFrame {
 		panel.add(fillrectButton, BorderLayout.NORTH);
 		panel.add(clearButton, BorderLayout.EAST);
 	}
+
 
 	public static void main(String[] args) {
 		Paint paint = new Paint();

@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
-public class OvalListener implements DrawListener{
+public class FillOvalListener implements DrawListener{
 	
 	private Canvas canvas;
 	private Graphics2D g2;
@@ -13,7 +13,7 @@ public class OvalListener implements DrawListener{
 	private Integer endx;
 	private Integer endy;
 	
-	public OvalListener(Canvas canvas){
+	public FillOvalListener(Canvas canvas){
 		this.canvas = canvas;
 	}
 
@@ -52,10 +52,11 @@ public class OvalListener implements DrawListener{
 	}
 
 	private void drawOval() {
+		
 		canvas.setGraphics();
 		Graphics2D g2 = canvas.getGraphics();
 
-		g2.drawOval(firstx, firsty, endx, endy);
+		g2.fillOval(firstx, firsty, endx, endy);
 		canvas.repaint();
 		
 	}
@@ -77,7 +78,4 @@ public class OvalListener implements DrawListener{
 		this.g2 = g;
 		drawOval();
 	}
-	
-	
-
 }
