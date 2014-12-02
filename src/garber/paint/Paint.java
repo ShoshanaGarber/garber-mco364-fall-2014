@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
@@ -70,6 +68,7 @@ public class Paint extends JFrame {
 
 		ActionListener colorListener = new ActionListener() {
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				Color initialColor = colorButton.getBackground();
@@ -83,6 +82,7 @@ public class Paint extends JFrame {
 
 		ActionListener clearListener = new ActionListener() {
 
+			@Override
 			public void actionPerformed(ActionEvent e) {
 
 				canvas.clearCanvas();

@@ -60,7 +60,7 @@ public class DrawRectangleListener implements DrawListener {
 
 	}
 
-	public void clearPoint() {
+	public void resetPoints() {
 		this.firstx = null;
 		this.firsty = null;
 		this.endx = null;

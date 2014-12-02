@@ -17,11 +17,13 @@ public class Canvas extends JComponent {
 	private Color color;
 	private BufferedImage image;
 	private DrawListener listener;
+	private boolean clear;
 
 	public Canvas() {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		stroke = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 		setColor(Color.BLACK);
+		clear = false;
 
 	}
 
@@ -30,15 +32,17 @@ public class Canvas extends JComponent {
 
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
-		if (listener != null) {
-			listener.drawPreview((Graphics2D)g);
-		}// draws contents of image to
-			// window for rectangle,
-			// ovals...
+		if (listener != null && !clear) {
+			listener.drawPreview((Graphics2D) g);
+		} else {
+			clear = false;
+		}
+		// window for rectangle,
+		// ovals...
 	}
 
 	public void setGraphics(Graphics2D g) {
-	
+
 		g.setColor(getColor());
 		g.setStroke(getStroke());
 
@@ -80,9 +84,12 @@ public class Canvas extends JComponent {
 	}
 
 	public void clearCanvas() {
-		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		repaint();
-
+		if (listener != null) {
+			clear = true;
+			image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+			listener.resetPoints();
+			repaint();
+		}
 	}
 
 	public BufferedImage getImage() {

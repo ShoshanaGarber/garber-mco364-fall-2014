@@ -44,7 +44,7 @@ public class DrawPencilListener implements DrawListener{
 
 	}
 
-	public void clearPoint() {
+	public void resetPoints() {
 		this.x = null;
 		this.y = null;
 		this.prevx = null;
@@ -65,7 +65,7 @@ public class DrawPencilListener implements DrawListener{
 
 	@Override
 	public void mouseMoved(MouseEvent e) {// move mouse without clicking
-		clearPoint();
+		resetPoints();
 
 	}
 
