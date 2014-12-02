@@ -69,7 +69,7 @@ public class DrawLineListener implements DrawListener{
 		canvas.setGraphics(g2);
 		
 		g2.drawLine(x1, y1, x2, y2);
-		canvas.repaint();
+		
 	}
 
 	@Override

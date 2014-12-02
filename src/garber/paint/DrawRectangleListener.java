@@ -77,7 +77,7 @@ public class DrawRectangleListener implements DrawListener {
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
 		g2.drawRect(firstx, firsty, width, height);
-		canvas.repaint();
+		
 	}
 
 	@Override
