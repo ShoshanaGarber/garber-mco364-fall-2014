@@ -20,7 +20,11 @@ public class Canvas extends JComponent {
 	private boolean clear;
 
 	public Canvas() {
-		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);//draw to buffered image and then buffered
+		                                                                 //image gets copied to the screen. 
+		                                                                 //buffered image is long term storage-graphics object from guffered image
+		                                                                 //short term storage is graphics object 
+		                                                                 //from paint component
 		stroke = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 		setColor(Color.BLACK);
 		clear = false;

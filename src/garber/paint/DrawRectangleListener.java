@@ -18,7 +18,8 @@ public class DrawRectangleListener implements DrawListener {
 	public void mouseDragged(MouseEvent e) {
 		endx = e.getX();
 		endy = e.getY();
-        canvas.repaint();
+
+		canvas.repaint();
 	}
 
 	@Override
@@ -27,8 +28,9 @@ public class DrawRectangleListener implements DrawListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		
+	public void mouseClicked(MouseEvent e) {// only happens when you press and
+											// release
+
 	}
 
 	@Override
@@ -47,7 +49,6 @@ public class DrawRectangleListener implements DrawListener {
 	public void mousePressed(MouseEvent e) {
 		firstx = e.getX();
 		firsty = e.getY();
-		
 
 	}
 
@@ -56,7 +57,6 @@ public class DrawRectangleListener implements DrawListener {
 		endx = e.getX();
 		endy = e.getY();
 		drawRec();
-		
 
 	}
 
@@ -67,26 +67,35 @@ public class DrawRectangleListener implements DrawListener {
 		this.endy = null;
 
 	}
-	
-	public void drawRec(){
-		
+
+	public void drawRec() {
+
 		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
 		canvas.setGraphics(g2);
 		
-
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
-		g2.drawRect(firstx, firsty, width, height);
 		
+		firstx = Math.min(firstx, endx);
+		firsty = Math.abs(firsty-endy);
+		
+		g2.drawRect(firstx, firsty, width, height);
+
+		
+
 	}
 
 	@Override
 	public void drawPreview(Graphics2D g) {
-		
+
 		canvas.setGraphics(g);
-		
+
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
+        
+		firstx = Math.min(firstx, endx);
+		firsty = Math.abs(firsty-endy);
+		
 		g.drawRect(firstx, firsty, width, height);
 
 
