@@ -63,13 +63,6 @@ public class OvalListener implements DrawListener {
 
 	}
 
-	public void resetPoints() {
-		this.firstx = null;
-		this.firsty = null;
-		this.endx = null;
-		this.endy = null;
-
-	}
 
 	private void drawOval() {
 

@@ -58,14 +58,6 @@ public class FillRectListener implements DrawListener {
 		drawRec();
 
 	}
-	
-	public void resetPoints() {
-		this.firstx = null;
-		this.firsty = null;
-		this.endx = null;
-		this.endy = null;
-
-	}
 
 	public void drawRec() {
 

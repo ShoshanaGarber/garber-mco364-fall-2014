@@ -91,7 +91,6 @@ public class Canvas extends JComponent {
 		if (listener != null) {
 			clear = true;
 			image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-			listener.resetPoints();
 			repaint();
 		}
 	}

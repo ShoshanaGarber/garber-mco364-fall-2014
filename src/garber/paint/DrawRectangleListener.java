@@ -60,27 +60,20 @@ public class DrawRectangleListener implements DrawListener {
 
 	}
 
-	public void resetPoints() {
-		this.firstx = null;
-		this.firsty = null;
-		this.endx = null;
-		this.endy = null;
-
-	}
 
 	public void drawRec() {
 
 		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
 		canvas.setGraphics(g2);
-		
+
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
-		
-		firstx = Math.min(firstx, endx);
-		firsty = Math.abs(firsty-endy);
-		
-		g2.drawRect(firstx, firsty, width, height);
 
+		int x = Math.min(firstx, endx);
+		int y = Math.max(firsty, endy);
+
+		g2.drawRect(x, y, width, height);
+		
 		
 
 	}
@@ -92,12 +85,12 @@ public class DrawRectangleListener implements DrawListener {
 
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
-        
-		firstx = Math.min(firstx, endx);
-		firsty = Math.abs(firsty-endy);
 		
-		g.drawRect(firstx, firsty, width, height);
+		int x = Math.min(firstx, endx);
+		int y = Math.max(firsty, endy);
 
+		g.drawRect(x, y, width, height);
+		
 
 	}
 

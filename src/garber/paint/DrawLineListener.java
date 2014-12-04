@@ -1,6 +1,5 @@
 package garber.paint;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
@@ -62,14 +61,7 @@ public class DrawLineListener implements DrawListener{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public void resetPoints() {
-		this.x1 = null;
-		this.y1 = null;
-		this.x2 = null;
-		this.y2 = null;
 
-	}
 	
 	public void drawLine(){
 		

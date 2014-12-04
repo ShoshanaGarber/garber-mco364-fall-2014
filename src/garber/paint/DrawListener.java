@@ -12,7 +12,6 @@ public interface DrawListener extends MouseListener, MouseMotionListener {
 	
 	void drawPreview(Graphics2D g);
 
-	void resetPoints();
 	
 	
 
