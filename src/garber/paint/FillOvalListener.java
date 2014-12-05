@@ -68,9 +68,14 @@ public class FillOvalListener implements DrawListener {
 		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
 		canvas.setGraphics(g2);
 
+
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
-		g2.fillOval(firstx, firsty, width, height);
+		
+		int x = Math.min(firstx, endx);
+		int y = Math.min(firsty, endy);
+
+		g2.fillOval(x, y, width, height);
 
 	}
 
@@ -80,7 +85,12 @@ public class FillOvalListener implements DrawListener {
 
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
-		g.fillOval(firstx, firsty, width, height);
+		
+		int x = Math.min(firstx, endx);
+		int y = Math.min(firsty, endy);
+
+		g.fillOval(x, y, width, height);
+		
 	}
 
 }

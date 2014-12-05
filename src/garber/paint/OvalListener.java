@@ -71,7 +71,11 @@ public class OvalListener implements DrawListener {
 
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
-		g2.drawOval(firstx, firsty, width, height);
+		
+		int x = Math.min(firstx, endx);
+		int y = Math.min(firsty, endy);
+
+		g2.drawOval(x, y, width, height);
 
 	}
 
@@ -81,7 +85,11 @@ public class OvalListener implements DrawListener {
 
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
-		g.drawOval(firstx, firsty, width, height);
+		
+		int x = Math.min(firstx, endx);
+		int y = Math.min(firsty, endy);
+
+		g.drawOval(x, y, width, height);
 	}
 
 }

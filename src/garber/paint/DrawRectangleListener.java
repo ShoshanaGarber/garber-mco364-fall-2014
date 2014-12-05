@@ -70,7 +70,7 @@ public class DrawRectangleListener implements DrawListener {
 		int height = Math.abs(endy - firsty);
 
 		int x = Math.min(firstx, endx);
-		int y = Math.max(firsty, endy);
+		int y = Math.min(firsty, endy);
 
 		g2.drawRect(x, y, width, height);
 		
@@ -87,7 +87,7 @@ public class DrawRectangleListener implements DrawListener {
 		int height = Math.abs(endy - firsty);
 		
 		int x = Math.min(firstx, endx);
-		int y = Math.max(firsty, endy);
+		int y = Math.min(firsty, endy);
 
 		g.drawRect(x, y, width, height);
 		

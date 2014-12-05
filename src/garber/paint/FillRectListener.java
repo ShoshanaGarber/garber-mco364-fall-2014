@@ -66,7 +66,11 @@ public class FillRectListener implements DrawListener {
 
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
-		g2.fillRect(firstx, firsty, width, height);
+		
+		int x = Math.min(firstx, endx);
+		int y = Math.min(firsty, endy);
+
+		g2.fillRect(x, y, width, height);
 		
 	}
 
@@ -77,7 +81,11 @@ public class FillRectListener implements DrawListener {
 
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
-		g.fillRect(firstx, firsty, width, height);
+		
+		int x = Math.min(firstx, endx);
+		int y = Math.min(firsty, endy);
+
+		g.fillRect(x, y, width, height);
 
 	}
 
