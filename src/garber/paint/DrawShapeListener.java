@@ -3,33 +3,25 @@ package garber.paint;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
-public class DrawRectangleListener implements DrawListener {
+public class DrawShapeListener implements DrawListener {
+
 	private Canvas canvas;
 	private Integer firstx;
 	private Integer firsty;
 	private Integer endx;
 	private Integer endy;
+	private Shape shape;
 
-	public DrawRectangleListener(Canvas canvas) {
+	public DrawShapeListener(Canvas canvas, Shape shape) {
 		this.canvas = canvas;
+		this.shape = shape;
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		endx = e.getX();
-		endy = e.getY();
-
-		canvas.repaint();
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
-
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {// only happens when you press and
-											// release
+	public void mouseClicked(MouseEvent arg0) {// only happens when you press
+												// and
+		// release
+		// TODO Auto-generated method stub
 
 	}
 
@@ -50,18 +42,33 @@ public class DrawRectangleListener implements DrawListener {
 		firstx = e.getX();
 		firsty = e.getY();
 
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		endx = e.getX();
 		endy = e.getY();
-		drawRec();
+		drawShape();
 
 	}
 
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		endx = e.getX();
+		endy = e.getY();
 
-	public void drawRec() {
+		canvas.repaint();
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void drawShape() {
 
 		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
 		canvas.setGraphics(g2);
@@ -72,25 +79,51 @@ public class DrawRectangleListener implements DrawListener {
 		int x = Math.min(firstx, endx);
 		int y = Math.min(firsty, endy);
 
-		g2.drawRect(x, y, width, height);
-		
-		
+		switch (shape) {
+
+		case Rect:
+			g2.drawRect(x, y, width, height);
+			break;
+		case Oval:
+			g2.drawOval(x, y, width, height);
+			break;
+		case FillOval:
+			g2.fillOval(x, y, width, height);
+			break;
+		case FillRectangle:
+			g2.fillRect(x, y, width, height);
+			break;
+
+		}
 
 	}
 
 	@Override
 	public void drawPreview(Graphics2D g) {
-
 		canvas.setGraphics(g);
 
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
-		
+
 		int x = Math.min(firstx, endx);
 		int y = Math.min(firsty, endy);
 
-		g.drawRect(x, y, width, height);
-		
+		switch (shape) {
+
+		case Rect:
+			g.drawRect(x, y, width, height);
+			break;
+		case Oval:
+			g.drawOval(x, y, width, height);
+			break;
+		case FillOval:
+			g.fillOval(x, y, width, height);
+			break;
+		case FillRectangle:
+			g.fillRect(x, y, width, height);
+			break;
+
+		}
 
 	}
 

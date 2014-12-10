@@ -102,11 +102,11 @@ public class Paint extends JFrame {
 					canvas.changeDrawListener(drawPencilListener);			
 
 				} else if (buttonClicked.equals(rectButton)) {
-					DrawListener rectListener = new DrawRectangleListener(canvas);
+					DrawListener rectListener = new DrawShapeListener(canvas,Shape.Rect);
 					canvas.changeDrawListener(rectListener);
 
 				} else if (buttonClicked.equals(ovalButton)) {
-					DrawListener ovalListener = new OvalListener(canvas);
+					DrawListener ovalListener = new DrawShapeListener(canvas,Shape.Oval);
 					canvas.changeDrawListener(ovalListener);
 					
 
@@ -116,12 +116,12 @@ public class Paint extends JFrame {
 					
 
 				}else if (buttonClicked.equals(fillrectButton)) {
-					DrawListener fillRectListener = new FillRectListener(canvas);
+					DrawListener fillRectListener = new DrawShapeListener(canvas,Shape.FillRectangle);
 					canvas.changeDrawListener(fillRectListener);
 					
 					
 				}else if (buttonClicked.equals(fillovalButton)) {
-					DrawListener fillOvalListener = new FillOvalListener(canvas);
+					DrawListener fillOvalListener = new DrawShapeListener(canvas,Shape.FillOval);
 					canvas.changeDrawListener(fillOvalListener);
 					
 

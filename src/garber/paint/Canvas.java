@@ -41,8 +41,7 @@ public class Canvas extends JComponent {
 		} else {
 			clear = false;
 		}
-		// window for rectangle,
-		// ovals...
+
 	}
 
 	public void setGraphics(Graphics2D g) {
