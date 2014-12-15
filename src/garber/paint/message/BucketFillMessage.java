@@ -2,13 +2,13 @@ package garber.paint.message;
 
 import java.awt.Graphics2D;
 
-public class BucketFillMessage implements PaintMessage{
-	
+public class BucketFillMessage implements PaintMessage {
+
 	private int x;
 	private int y;
 	private int color;
-	
-	public BucketFillMessage(int x, int y, int color){
+
+	public BucketFillMessage(int x, int y, int color) {
 		this.x = x;
 		this.y = y;
 		this.color = color;
@@ -38,10 +38,15 @@ public class BucketFillMessage implements PaintMessage{
 		this.color = color;
 	}
 
+	public String toString() {
+		return "BUCKET_FILL " + x + " " + y + " " + color + "\\n";
+
+	}
+
 	@Override
 	public void apply(Graphics2D g) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

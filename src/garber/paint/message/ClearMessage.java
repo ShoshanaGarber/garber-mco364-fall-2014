@@ -4,7 +4,9 @@ import java.awt.Graphics2D;
 
 public class ClearMessage implements PaintMessage{
 	
-	
+	public ClearMessage(){
+		
+	}
 	
 	
 	public String toString(){

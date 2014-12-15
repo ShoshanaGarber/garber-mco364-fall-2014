@@ -27,6 +27,8 @@ public class Paint extends JFrame {
 	private JLabel label2;
 	private Canvas canvas;
 	private JPanel panel;
+	private JPanel panel2;
+	private JButton bucketFillButton;
 
 	public Paint() {
 		this.setSize(800, 600);
@@ -37,6 +39,7 @@ public class Paint extends JFrame {
 		canvas = new Canvas();
 
 		panel = new JPanel();
+		panel2 = new JPanel();
 
 		colorButton = new JButton("Change Color");
 		drawButton = new JButton("Pencil");
@@ -48,9 +51,11 @@ public class Paint extends JFrame {
 		clearButton = new JButton("Clear");
 		label = new JLabel("Stroke Width");
 		label2 = new JLabel(" " + canvas.getStrokeWidth());
+		bucketFillButton = new JButton(" Bucket Fill");
 
 		add(canvas, BorderLayout.CENTER);
 		add(panel, BorderLayout.SOUTH);
+		add(panel2,BorderLayout.NORTH);
 		panel.add(label, BorderLayout.EAST);
 		panel.add(label2, BorderLayout.EAST);
 
@@ -123,7 +128,10 @@ public class Paint extends JFrame {
 				}else if (buttonClicked.equals(fillovalButton)) {
 					DrawListener fillOvalListener = new DrawShapeListener(canvas,Shape.FillOval);
 					canvas.changeDrawListener(fillOvalListener);
-					
+
+				}else if(buttonClicked.equals(bucketFillButton)){
+					DrawListener bucketFillListener = new BucketFillListener(canvas);
+					canvas.changeDrawListener(bucketFillListener);
 
 				}
 			}
@@ -138,6 +146,7 @@ public class Paint extends JFrame {
 		lineButton.addActionListener(drawListener);
 		fillovalButton.addActionListener(drawListener);
 		fillrectButton.addActionListener(drawListener);	
+		bucketFillButton.addActionListener(drawListener);
 		
 		panel.add(colorButton, BorderLayout.SOUTH);
 		panel.add(drawButton, BorderLayout.WEST);
@@ -147,6 +156,7 @@ public class Paint extends JFrame {
 		panel.add(fillovalButton, BorderLayout.NORTH);
 		panel.add(fillrectButton, BorderLayout.NORTH);
 		panel.add(clearButton, BorderLayout.EAST);
+		panel2.add(bucketFillButton,BorderLayout.SOUTH);
 	}
 
 

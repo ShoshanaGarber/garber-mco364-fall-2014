@@ -6,10 +6,10 @@ import java.awt.event.MouseEvent;
 public class DrawShapeListener implements DrawListener {
 
 	private Canvas canvas;
-	private Integer firstx;
-	private Integer firsty;
-	private Integer endx;
-	private Integer endy;
+	private int firstx;
+	private int firsty;
+	private int endx;
+	private int endy;
 	private Shape shape;
 
 	public DrawShapeListener(Canvas canvas, Shape shape) {
