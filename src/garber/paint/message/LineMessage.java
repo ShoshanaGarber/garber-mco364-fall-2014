@@ -1,5 +1,7 @@
 package garber.paint.message;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 
@@ -75,7 +77,9 @@ public class LineMessage implements PaintMessage{
 
 	@Override
 	public void apply(Graphics2D g) {
-		// TODO Auto-generated method stub
+		g.setStroke(new BasicStroke(stroke));
+		g.setColor(new Color(color));
+		g.drawLine(x1, y1, x2, y2);
 		
 	}
 

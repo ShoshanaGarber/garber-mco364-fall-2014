@@ -79,6 +79,7 @@ public class BucketFillListener implements DrawListener {
 
 	public void floodFill(int x, int y, int targetColor, Color replacementColor, BufferedImage image) {
 
+		
 		boolean[][] painted = new boolean[image.getHeight()][image.getWidth()];
 		Queue<Point> queue = new LinkedList<Point>();
 		
