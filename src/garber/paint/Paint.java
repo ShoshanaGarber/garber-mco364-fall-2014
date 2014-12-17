@@ -1,11 +1,18 @@
 package garber.paint;
 
+import garber.paint.message.ClientSide;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
@@ -30,13 +37,16 @@ public class Paint extends JFrame {
 	private JPanel panel2;
 	private JButton bucketFillButton;
 
-	public Paint() {
+
+	public Paint() throws UnknownHostException, IOException {
 		this.setSize(800, 600);
 		this.setTitle("Paint");
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		canvas = new Canvas();
+		
+		ClientSide client = new ClientSide();
+		
+		canvas = new Canvas(client);
 
 		panel = new JPanel();
 		panel2 = new JPanel();
@@ -158,9 +168,10 @@ public class Paint extends JFrame {
 		panel.add(clearButton, BorderLayout.EAST);
 		panel2.add(bucketFillButton,BorderLayout.SOUTH);
 	}
+	
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnknownHostException, IOException {
 		Paint paint = new Paint();
 		paint.setVisible(true);
 	}

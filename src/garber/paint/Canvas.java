@@ -1,11 +1,13 @@
 package garber.paint;
 
+import garber.paint.message.ClientSide;
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import java.awt.image.BufferedImage;
+import java.io.OutputStream;
 
 import javax.swing.JComponent;
 
@@ -18,8 +20,11 @@ public class Canvas extends JComponent {
 	private BufferedImage image;
 	private DrawListener listener;
 	private boolean clear;
+	private OutputStream out;
+	private ClientSide client;
 
-	public Canvas() {
+	public Canvas(ClientSide client) {
+		this.client = client;
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);//draw to buffered image and then buffered
 		                                                                 //image gets copied to the screen. 
 		                                                                 //buffered image is long term storage-graphics object from guffered image
@@ -110,6 +115,11 @@ public class Canvas extends JComponent {
 
 	public Graphics2D getGraphics() {
 		return g2;
+	}
+	
+	public ClientSide getClient(){
+		return client;
+		
 	}
 
 }

@@ -1,5 +1,7 @@
 package garber.paint;
 
+import garber.paint.message.ShapeMessage;
+
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
@@ -41,7 +43,6 @@ public class DrawShapeListener implements DrawListener {
 	public void mousePressed(MouseEvent e) {
 		firstx = e.getX();
 		firsty = e.getY();
-
 
 	}
 
@@ -107,20 +108,34 @@ public class DrawShapeListener implements DrawListener {
 
 		int x = Math.min(firstx, endx);
 		int y = Math.min(firsty, endy);
+		
+		ShapeMessage message;
 
 		switch (shape) {
 
 		case Rect:
 			g.drawRect(x, y, width, height);
+			message = new ShapeMessage(x, y, width, height, Shape.Rect, Boolean.FALSE, canvas.getColor()
+					.getRGB(), (int) canvas.getStrokeWidth());
+			canvas.getClient().sendMessage(message.toString());
 			break;
 		case Oval:
 			g.drawOval(x, y, width, height);
+			message = new ShapeMessage(x, y, width, height, Shape.Oval, Boolean.FALSE, canvas.getColor()
+					.getRGB(), (int) canvas.getStrokeWidth());
+			canvas.getClient().sendMessage(message.toString());
 			break;
 		case FillOval:
 			g.fillOval(x, y, width, height);
+			message = new ShapeMessage(x, y, width, height, Shape.Oval, Boolean.TRUE, canvas.getColor()
+					.getRGB(), (int) canvas.getStrokeWidth());
+			canvas.getClient().sendMessage(message.toString());
 			break;
 		case FillRectangle:
 			g.fillRect(x, y, width, height);
+			message = new ShapeMessage(x, y, width, height, Shape.Rect, Boolean.TRUE, canvas.getColor()
+					.getRGB(), (int) canvas.getStrokeWidth());
+			canvas.getClient().sendMessage(message.toString());
 			break;
 
 		}
