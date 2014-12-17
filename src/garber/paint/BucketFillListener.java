@@ -83,11 +83,6 @@ public class BucketFillListener implements DrawListener {
 		boolean[][] painted = new boolean[image.getHeight()][image.getWidth()];
 		Queue<Point> queue = new LinkedList<Point>();
 		
-		if (x != 0)
-			x--;
-		if (y != 0)
-			y--;
-		
 		if (image.getRGB(x, y) != targetColor) {
 			return;
 		}
