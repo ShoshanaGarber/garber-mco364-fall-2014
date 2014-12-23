@@ -9,6 +9,7 @@ import java.awt.event.MouseWheelListener;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,6 +24,7 @@ public class Paint extends JFrame {
 	private JButton fillovalButton;
 	private JButton fillrectButton;
 	private JButton clearButton;
+	private JComboBox<String> dropDown;
 	private JLabel label;
 	private JLabel label2;
 	private Canvas canvas;
@@ -41,6 +43,8 @@ public class Paint extends JFrame {
 		panel = new JPanel();
 		panel2 = new JPanel();
 
+		String[] imageList = { "Image 1", "Image 2", "Image 3", "Image 4" };
+
 		colorButton = new JButton("Change Color");
 		drawButton = new JButton("Pencil");
 		ovalButton = new JButton("Oval");
@@ -52,13 +56,27 @@ public class Paint extends JFrame {
 		label = new JLabel("Stroke Width");
 		label2 = new JLabel(" " + canvas.getStrokeWidth());
 		bucketFillButton = new JButton(" Bucket Fill");
+		dropDown = new JComboBox<String>(imageList);
 
 		add(canvas, BorderLayout.CENTER);
 		add(panel, BorderLayout.SOUTH);
-		add(panel2,BorderLayout.NORTH);
+		add(panel2, BorderLayout.NORTH);
+		
 		panel.add(label, BorderLayout.EAST);
 		panel.add(label2, BorderLayout.EAST);
-
+		
+		
+		ActionListener imageListener = new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e){
+				 JComboBox<String> cb = (JComboBox<String>)e.getSource();
+			        String imageNum = (String)cb.getSelectedItem();
+			        canvas.setImage(Integer.parseInt(imageNum.substring(6))-1);
+			}
+		};
+		
+		
+		
 		MouseWheelListener mouseWheelListener = new MouseWheelListener() {
 
 			@Override
@@ -98,38 +116,34 @@ public class Paint extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
 
 				JButton buttonClicked = (JButton) e.getSource();
 
 				if (buttonClicked.equals(drawButton)) {
 					DrawListener drawPencilListener = new DrawPencilListener(canvas);
-					canvas.changeDrawListener(drawPencilListener);			
+					canvas.changeDrawListener(drawPencilListener);
 
 				} else if (buttonClicked.equals(rectButton)) {
-					DrawListener rectListener = new DrawShapeListener(canvas,Shape.Rect);
+					DrawListener rectListener = new DrawShapeListener(canvas, Shape.Rect);
 					canvas.changeDrawListener(rectListener);
 
 				} else if (buttonClicked.equals(ovalButton)) {
-					DrawListener ovalListener = new DrawShapeListener(canvas,Shape.Oval);
+					DrawListener ovalListener = new DrawShapeListener(canvas, Shape.Oval);
 					canvas.changeDrawListener(ovalListener);
-					
 
-				}else if (buttonClicked.equals(lineButton)) {
+				} else if (buttonClicked.equals(lineButton)) {
 					DrawListener lineListener = new DrawLineListener(canvas);
 					canvas.changeDrawListener(lineListener);
-					
 
-				}else if (buttonClicked.equals(fillrectButton)) {
-					DrawListener fillRectListener = new DrawShapeListener(canvas,Shape.FillRectangle);
+				} else if (buttonClicked.equals(fillrectButton)) {
+					DrawListener fillRectListener = new DrawShapeListener(canvas, Shape.FillRectangle);
 					canvas.changeDrawListener(fillRectListener);
-					
-					
-				}else if (buttonClicked.equals(fillovalButton)) {
-					DrawListener fillOvalListener = new DrawShapeListener(canvas,Shape.FillOval);
+
+				} else if (buttonClicked.equals(fillovalButton)) {
+					DrawListener fillOvalListener = new DrawShapeListener(canvas, Shape.FillOval);
 					canvas.changeDrawListener(fillOvalListener);
 
-				}else if(buttonClicked.equals(bucketFillButton)){
+				} else if (buttonClicked.equals(bucketFillButton)) {
 					DrawListener bucketFillListener = new BucketFillListener(canvas);
 					canvas.changeDrawListener(bucketFillListener);
 
@@ -145,9 +159,10 @@ public class Paint extends JFrame {
 		clearButton.addActionListener(clearListener);
 		lineButton.addActionListener(drawListener);
 		fillovalButton.addActionListener(drawListener);
-		fillrectButton.addActionListener(drawListener);	
+		fillrectButton.addActionListener(drawListener);
 		bucketFillButton.addActionListener(drawListener);
-		
+		dropDown.addActionListener(imageListener);
+
 		panel.add(colorButton, BorderLayout.SOUTH);
 		panel.add(drawButton, BorderLayout.WEST);
 		panel.add(ovalButton, BorderLayout.EAST);
@@ -156,9 +171,9 @@ public class Paint extends JFrame {
 		panel.add(fillovalButton, BorderLayout.NORTH);
 		panel.add(fillrectButton, BorderLayout.NORTH);
 		panel.add(clearButton, BorderLayout.EAST);
-		panel2.add(bucketFillButton,BorderLayout.SOUTH);
+		panel2.add(bucketFillButton, BorderLayout.SOUTH);
+		panel2.add(dropDown, BorderLayout.EAST);
 	}
-
 
 	public static void main(String[] args) {
 		Paint paint = new Paint();
