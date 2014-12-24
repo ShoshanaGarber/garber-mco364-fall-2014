@@ -16,7 +16,7 @@ public class Canvas extends JComponent {
 
 	private Color color;
 	private BufferedImage[] images;
-	private BufferedImage currentImage;
+	private int currentImage;
 	private DrawListener listener;
 	private boolean clear;
 
@@ -29,7 +29,6 @@ public class Canvas extends JComponent {
 																					// buffered
 																					// image
 																					// and
-			//((Graphics2D) images[i].getGraphics()).setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f));
 			// then
 			// buffered
 		} // image gets copied to the screen.
@@ -37,7 +36,7 @@ public class Canvas extends JComponent {
 			// image
 			// short term storage is graphics object
 			// from paint component
-		currentImage = images[0];
+		currentImage = 0;
 		stroke = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 		setColor(Color.BLACK);
 		clear = false;
@@ -48,15 +47,15 @@ public class Canvas extends JComponent {
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-		g.drawImage(currentImage, 0, 0, null);
+		for(BufferedImage bf: images){
+			g.drawImage(bf, 0, 0, null);
+			}
 		if (listener != null && !clear) {
 			listener.drawPreview((Graphics2D) g);
 		} else {
 			clear = false;
 		}
-		for(BufferedImage bf: images){
-			g.drawImage(bf, 0, 0, null);
-			}
+		
 
 	}
 
@@ -68,7 +67,7 @@ public class Canvas extends JComponent {
 	}
 
 	public void setImage(int imageNum) {
-		currentImage = images[imageNum];
+		currentImage = imageNum;
 	}
 
 	public void setColor(Color color) {
@@ -81,7 +80,7 @@ public class Canvas extends JComponent {
 	}
 
 	public void setStrokeWidth(int wheelRotation) {
-		Graphics g = currentImage.getGraphics();
+		Graphics g = images[currentImage].getGraphics();
 		g2 = (Graphics2D) g;
 
 		if (wheelRotation < 0) {
@@ -109,15 +108,13 @@ public class Canvas extends JComponent {
 	public void clearCanvas() {
 		if (listener != null) {
 			clear = true;
-			currentImage = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-			//((Graphics2D) currentImage.getGraphics()).setBackground(new Color(0,0,0,0));
-			//((Graphics2D) currentImage.getGraphics()).setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR, 0.0f));
+			images[currentImage] = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 			repaint();
 		}
 	}
 
 	public BufferedImage getImage() {
-		return currentImage;
+		return images[currentImage];
 	}
 
 	public void changeDrawListener(DrawListener listener) {
