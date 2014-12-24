@@ -1,5 +1,6 @@
 package garber.paint;
 
+
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
@@ -41,7 +42,7 @@ public class DrawPencilListener implements DrawListener{
 		} else {
 			g2.fillOval(x, y, 5, 5);
 		}
-
+		
 	}
 
 	public void resetPoints() {
