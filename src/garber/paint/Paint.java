@@ -44,9 +44,8 @@ public class Paint extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		ClientSide client = new ClientSide();
-		
-		canvas = new Canvas(client);
+
+		canvas = new Canvas();
 
 		panel = new JPanel();
 		panel2 = new JPanel();

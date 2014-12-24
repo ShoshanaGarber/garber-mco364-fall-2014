@@ -4,6 +4,7 @@ import garber.paint.message.LineMessage;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class DrawLineListener implements DrawListener {
 
@@ -42,10 +43,15 @@ public class DrawLineListener implements DrawListener {
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
+	public void mouseReleased(MouseEvent e)  {
 		x2 = e.getX();
 		y2 = e.getY();
-		drawLine();
+		try {
+			drawLine();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 	}
 
@@ -63,7 +69,7 @@ public class DrawLineListener implements DrawListener {
 
 	}
 
-	public void drawLine() {
+	public void drawLine() throws IOException {
 
 		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
 		canvas.setGraphics(g2);

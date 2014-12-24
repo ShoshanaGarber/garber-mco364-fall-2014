@@ -4,7 +4,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import garber.paint.Shape;
 
 public class ShapeMessage implements PaintMessage {
 
@@ -12,12 +11,12 @@ public class ShapeMessage implements PaintMessage {
 	private int y;
 	private int width;
 	private int height;
-	private Shape shape;
+	private Type shape;
 	private boolean fill;
 	private int color;
 	private int stroke;
 
-	public ShapeMessage(int x, int y, int width, int height, Shape shape, boolean fill, int color, int stroke) {
+	public ShapeMessage(int x, int y, int width, int height, Type shape, boolean fill, int color, int stroke) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -60,11 +59,11 @@ public class ShapeMessage implements PaintMessage {
 		this.height = height;
 	}
 
-	public Shape getShape() {
+	public Type getShape() {
 		return shape;
 	}
 
-	public void setShape(Shape shape) {
+	public void setShape(Type shape) {
 		this.shape = shape;
 	}
 
@@ -94,7 +93,7 @@ public class ShapeMessage implements PaintMessage {
 
 	public String toString() {
 		return "SHAPE " + shape.toString() + " " + x + " " + y + " " + fill + " " + width + " " + height + " " + color
-				+ " " + stroke + "\\n";
+				+ " " + stroke + "\n";
 	}
 
 	@Override
@@ -102,14 +101,14 @@ public class ShapeMessage implements PaintMessage {
 		g.setStroke(new BasicStroke(stroke));
 		g.setColor(new Color(color));
 		switch (shape) {
-		case Rect:
+		case RECT:
 			if (fill) {
 				g.fillRect(x, y, width, height);
 			} else {
 				g.drawRect(x, y, width, height);
 			}
 			break;
-		case Oval:
+		case OVAL:
 			if (fill) {
 				g.fillOval(x, y, width, height);
 			} else {

@@ -7,7 +7,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.net.UnknownHostException;
 
 import javax.swing.JComponent;
 
@@ -23,8 +25,9 @@ public class Canvas extends JComponent {
 	private OutputStream out;
 	private ClientSide client;
 
-	public Canvas(ClientSide client) {
-		this.client = client;
+	public Canvas() throws UnknownHostException, IOException {
+
+		client = new ClientSide(this);
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);//draw to buffered image and then buffered
 		                                                                 //image gets copied to the screen. 
 		                                                                 //buffered image is long term storage-graphics object from guffered image

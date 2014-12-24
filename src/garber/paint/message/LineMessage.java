@@ -72,7 +72,7 @@ public class LineMessage implements PaintMessage{
 	}
 	
 	public String toString(){
-		return "LINE " + x1 + " " + y1 + " " + x2 + " " + y2 + " " + color + " " + stroke + "\\n";
+		return "LINE " + x1 + " " + y1 + " " + x2 + " " + y2 + " " + color + " " + stroke + "\n";
 	}
 
 	@Override

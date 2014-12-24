@@ -1,6 +1,5 @@
 package garber.paint.message;
 
-import garber.paint.Shape;
 
 public class PaintMessageFactory {
 
@@ -19,16 +18,16 @@ public class PaintMessageFactory {
 			}
 			messagesDesc[i] = desc.toString();
 		}
-		Shape shape = Shape.valueOf(messagesDesc[0]);
+		Type shape = Type.valueOf(messagesDesc[0]);
 
 		PaintMessage paintMessage = null;
 
 		switch (shape) {
-		case Rect:
-		case Oval:
+		case RECT:
+		case OVAL:
 			paintMessage = new ShapeMessage(Integer.parseInt(messagesDesc[1]), Integer.parseInt(messagesDesc[2]),
 					Integer.parseInt(messagesDesc[3]), Integer.parseInt(messagesDesc[4]),
-					Shape.valueOf(messagesDesc[5]), Boolean.parseBoolean(messagesDesc[6]),
+					Type.valueOf(messagesDesc[5]), Boolean.parseBoolean(messagesDesc[6]),
 					Integer.parseInt(messagesDesc[7]), Integer.parseInt(messagesDesc[8]));
 			break;
 		default:

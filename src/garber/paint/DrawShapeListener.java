@@ -1,9 +1,12 @@
 package garber.paint;
 
+
 import garber.paint.message.ShapeMessage;
+import garber.paint.message.Type;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class DrawShapeListener implements DrawListener {
 
@@ -50,7 +53,12 @@ public class DrawShapeListener implements DrawListener {
 	public void mouseReleased(MouseEvent e) {
 		endx = e.getX();
 		endy = e.getY();
-		drawShape();
+		try {
+			drawShape();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 	}
 
@@ -69,39 +77,10 @@ public class DrawShapeListener implements DrawListener {
 
 	}
 
-	public void drawShape() {
+	public void drawShape() throws IOException {
 
 		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
 		canvas.setGraphics(g2);
-
-		int width = Math.abs(endx - firstx);
-		int height = Math.abs(endy - firsty);
-
-		int x = Math.min(firstx, endx);
-		int y = Math.min(firsty, endy);
-
-		switch (shape) {
-
-		case Rect:
-			g2.drawRect(x, y, width, height);
-			break;
-		case Oval:
-			g2.drawOval(x, y, width, height);
-			break;
-		case FillOval:
-			g2.fillOval(x, y, width, height);
-			break;
-		case FillRectangle:
-			g2.fillRect(x, y, width, height);
-			break;
-
-		}
-
-	}
-
-	@Override
-	public void drawPreview(Graphics2D g) {
-		canvas.setGraphics(g);
 
 		int width = Math.abs(endx - firstx);
 		int height = Math.abs(endy - firsty);
@@ -114,28 +93,59 @@ public class DrawShapeListener implements DrawListener {
 		switch (shape) {
 
 		case Rect:
-			g.drawRect(x, y, width, height);
-			message = new ShapeMessage(x, y, width, height, Shape.Rect, Boolean.FALSE, canvas.getColor()
+			g2.drawRect(x, y, width, height);
+			message = new ShapeMessage(x, y, width, height, Type.RECT, Boolean.FALSE, canvas.getColor()
 					.getRGB(), (int) canvas.getStrokeWidth());
 			canvas.getClient().sendMessage(message.toString());
 			break;
 		case Oval:
-			g.drawOval(x, y, width, height);
-			message = new ShapeMessage(x, y, width, height, Shape.Oval, Boolean.FALSE, canvas.getColor()
+			g2.drawOval(x, y, width, height);
+			message = new ShapeMessage(x, y, width, height, Type.OVAL, Boolean.FALSE, canvas.getColor()
 					.getRGB(), (int) canvas.getStrokeWidth());
 			canvas.getClient().sendMessage(message.toString());
 			break;
 		case FillOval:
-			g.fillOval(x, y, width, height);
-			message = new ShapeMessage(x, y, width, height, Shape.Oval, Boolean.TRUE, canvas.getColor()
+			g2.fillOval(x, y, width, height);
+			message = new ShapeMessage(x, y, width, height, Type.OVAL, Boolean.TRUE, canvas.getColor()
 					.getRGB(), (int) canvas.getStrokeWidth());
 			canvas.getClient().sendMessage(message.toString());
 			break;
 		case FillRectangle:
-			g.fillRect(x, y, width, height);
-			message = new ShapeMessage(x, y, width, height, Shape.Rect, Boolean.TRUE, canvas.getColor()
+			g2.fillRect(x, y, width, height);
+			message = new ShapeMessage(x, y, width, height, Type.RECT, Boolean.TRUE, canvas.getColor()
 					.getRGB(), (int) canvas.getStrokeWidth());
 			canvas.getClient().sendMessage(message.toString());
+			break;
+
+		}
+
+	}
+
+	@Override
+	public void drawPreview(Graphics2D g)  {
+		canvas.setGraphics(g);
+
+		int width = Math.abs(endx - firstx);
+		int height = Math.abs(endy - firsty);
+
+		int x = Math.min(firstx, endx);
+		int y = Math.min(firsty, endy);
+		
+		
+
+		switch (shape) {
+
+		case Rect:
+			g.drawRect(x, y, width, height);
+			break;
+		case Oval:
+			g.drawOval(x, y, width, height);
+			break;
+		case FillOval:
+			g.fillOval(x, y, width, height);
+			break;
+		case FillRectangle:
+			g.fillRect(x, y, width, height);
 			break;
 
 		}
