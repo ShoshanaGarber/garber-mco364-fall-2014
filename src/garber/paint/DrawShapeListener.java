@@ -1,6 +1,5 @@
 package garber.paint;
 
-
 import garber.paint.message.PaintMessage;
 import garber.paint.message.ShapeMessage;
 import garber.paint.message.Type;
@@ -17,7 +16,6 @@ public class DrawShapeListener implements DrawListener {
 	private int endx;
 	private int endy;
 	private Shape shape;
-
 
 	public DrawShapeListener(Canvas canvas, Shape shape) {
 		this.canvas = canvas;
@@ -89,30 +87,29 @@ public class DrawShapeListener implements DrawListener {
 
 		int x = Math.min(firstx, endx);
 		int y = Math.min(firsty, endy);
-		
-	
+
 		PaintMessage message;
-		
+
 		switch (shape) {
 
 		case Rect:
-			message = new ShapeMessage(x, y, width, height, Type.RECT, Boolean.FALSE, canvas.getColor()
-					.getRGB(), (int) canvas.getStrokeWidth());
+			message = new ShapeMessage(Type.RECT, x, y, width, height, canvas.getColor().getRGB(),
+					(int) canvas.getStrokeWidth(), Boolean.FALSE);
 			canvas.getModule().sendMessage(message);
 			break;
 		case Oval:
-			message = new ShapeMessage(x, y, width, height, Type.OVAL, Boolean.FALSE, canvas.getColor()
-					.getRGB(), (int) canvas.getStrokeWidth());
+			message = new ShapeMessage(Type.OVAL, x, y, width, height,  canvas.getColor().getRGB(),
+					(int) canvas.getStrokeWidth(), Boolean.FALSE);
 			canvas.getModule().sendMessage(message);
 			break;
 		case FillOval:
-			message = new ShapeMessage(x, y, width, height, Type.OVAL, Boolean.TRUE, canvas.getColor()
-					.getRGB(), (int) canvas.getStrokeWidth());
+			message = new ShapeMessage(Type.OVAL, x, y, width, height,  canvas.getColor().getRGB(),
+					(int) canvas.getStrokeWidth(), Boolean.TRUE);
 			canvas.getModule().sendMessage(message);
 			break;
 		case FillRectangle:
-			message = new ShapeMessage(x, y, width, height, Type.RECT, Boolean.TRUE, canvas.getColor()
-					.getRGB(), (int) canvas.getStrokeWidth());
+			message = new ShapeMessage(Type.RECT, x, y, width, height,  canvas.getColor().getRGB(),
+					(int) canvas.getStrokeWidth(), Boolean.TRUE);
 			canvas.getModule().sendMessage(message);
 			break;
 
@@ -121,7 +118,7 @@ public class DrawShapeListener implements DrawListener {
 	}
 
 	@Override
-	public void drawPreview(Graphics2D g)  {
+	public void drawPreview(Graphics2D g) {
 		canvas.setGraphics(g);
 
 		int width = Math.abs(endx - firstx);
@@ -129,8 +126,6 @@ public class DrawShapeListener implements DrawListener {
 
 		int x = Math.min(firstx, endx);
 		int y = Math.min(firsty, endy);
-		
-		
 
 		switch (shape) {
 
@@ -150,6 +145,5 @@ public class DrawShapeListener implements DrawListener {
 		}
 
 	}
-
 
 }

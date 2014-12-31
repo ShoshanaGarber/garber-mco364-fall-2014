@@ -4,7 +4,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-
 public class ShapeMessage implements PaintMessage {
 
 	private int x;
@@ -16,7 +15,7 @@ public class ShapeMessage implements PaintMessage {
 	private int color;
 	private int stroke;
 
-	public ShapeMessage(int x, int y, int width, int height, Type shape, boolean fill, int color, int stroke) {
+	public ShapeMessage(Type shape, int x, int y, int width, int height, int color, int stroke, boolean fill) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -92,8 +91,8 @@ public class ShapeMessage implements PaintMessage {
 	}
 
 	public String toString() {
-		return "SHAPE " + shape.toString() + " " + x + " " + y + " " + fill + " " + width + " " + height + " " + color
-				+ " " + stroke + "\n";
+		return "SHAPE " + shape.toString() + " " + x + " " + y + " " + width + " " + height + " " + color
+				+ " " + stroke + " " + fill +  "\n";
 	}
 
 	@Override

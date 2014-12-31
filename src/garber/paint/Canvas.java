@@ -40,8 +40,7 @@ public class Canvas extends JComponent {
 		stroke = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 		setColor(Color.BLACK);
 		clear = false;
-		Graphics g = image.getGraphics();
-		g2 = (Graphics2D) g;
+		g2 = (Graphics2D) image.getGraphics();
 
 	}
 

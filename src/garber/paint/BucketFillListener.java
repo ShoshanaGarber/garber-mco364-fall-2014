@@ -17,7 +17,7 @@ import java.util.Queue;
 public class BucketFillListener implements DrawListener {
 
 	private Canvas canvas;
-	
+
 	public BucketFillListener(Canvas canvas) {
 		this.canvas = canvas;
 
@@ -29,7 +29,7 @@ public class BucketFillListener implements DrawListener {
 		int y = e.getY();
 
 		try {
-			fill(x, y);
+			floodFill(x, y);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -73,54 +73,18 @@ public class BucketFillListener implements DrawListener {
 
 	}
 
-	public void fill(int x, int y) throws IOException {
 
+	public void floodFill(int x, int y) throws IOException {
+		
 		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
-		canvas.setGraphics(g2);
-		Color color = canvas.getColor();// color chosen
+	    canvas.setGraphics(g2);
+	    Color color = canvas.getColor();
 
-		BufferedImage image = canvas.getImage();
+		PaintMessage m = new BucketFillMessage(x, y, color.getRGB(), canvas);
+		canvas.getModule().sendMessage(m);
 
-		int targetColor = image.getRGB(x, y);// color of pixel clicked on
-
-		floodFill(x, y, targetColor, color, image);
 	}
 
-	public void floodFill(int x, int y, int targetColor, Color replacementColor, BufferedImage image) throws IOException {
-
-		
-		boolean[][] painted = new boolean[image.getHeight()][image.getWidth()];
-		Queue<Point> queue = new LinkedList<Point>();
-		
-		
-		if (image.getRGB(x, y) != targetColor) {
-			return;
-		}
-		queue.add(new Point(x, y));
-		
-		PaintMessage m;
-
-		while (!queue.isEmpty()) {
-			Point p = queue.remove();
-
-			if ((p.x >= 0) && (p.x < image.getWidth() && (p.y >= 0) && (p.y < image.getHeight()))) {
-				if (!painted[p.y][p.x] && image.getRGB(p.x, p.y) == targetColor) {
-					
-					m = new BucketFillMessage(p.x,p.y,replacementColor.getRGB(),canvas);
-					canvas.getModule().sendMessage(m);
-					
-					painted[p.y][p.x] = true;
-
-					queue.add(new Point(p.x + 1, p.y));
-					queue.add(new Point(p.x - 1, p.y));
-					queue.add(new Point(p.x, p.y + 1));
-					queue.add(new Point(p.x, p.y - 1));
-				}
-			}
-		}
-	}
-	
-	
 	@Override
 	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub

@@ -1,5 +1,7 @@
 package garber.paint.message;
 
+import java.awt.Graphics2D;
+
 import garber.paint.Canvas;
 
 public class LoopBackNetworkModule implements NetworkModule{
@@ -12,7 +14,7 @@ public class LoopBackNetworkModule implements NetworkModule{
 
 	@Override
 	public void sendMessage(PaintMessage message) {
-		message.apply(canvas.getGraphics());
+		message.apply((Graphics2D) canvas.getImage().getGraphics());
 		
 	}
 	
