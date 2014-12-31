@@ -106,7 +106,7 @@ public class BucketFillListener implements DrawListener {
 			if ((p.x >= 0) && (p.x < image.getWidth() && (p.y >= 0) && (p.y < image.getHeight()))) {
 				if (!painted[p.y][p.x] && image.getRGB(p.x, p.y) == targetColor) {
 					
-					m = new BucketFillMessage(x,y,replacementColor.getRGB());
+					m = new BucketFillMessage(p.x,p.y,replacementColor.getRGB(),canvas);
 					canvas.getModule().sendMessage(m);
 					
 					painted[p.y][p.x] = true;

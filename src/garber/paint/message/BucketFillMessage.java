@@ -1,5 +1,7 @@
 package garber.paint.message;
 
+import garber.paint.Canvas;
+
 import java.awt.Graphics2D;
 
 public class BucketFillMessage implements PaintMessage {
@@ -7,11 +9,13 @@ public class BucketFillMessage implements PaintMessage {
 	private int x;
 	private int y;
 	private int color;
+	private Canvas canvas;
 
-	public BucketFillMessage(int x, int y, int color) {
+	public BucketFillMessage(int x, int y, int color,Canvas canvas) {
 		this.x = x;
 		this.y = y;
 		this.color = color;
+		this.canvas = canvas;
 	}
 
 	public int getX() {
@@ -45,7 +49,7 @@ public class BucketFillMessage implements PaintMessage {
 
 	@Override
 	public void apply(Graphics2D g) {
-		g.drawLine(x,y,x,y);
+		canvas.getImage().setRGB(x,y,color);
 		
 		
 		

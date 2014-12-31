@@ -11,7 +11,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.UnknownHostException;
 
 import javax.swing.JComponent;
@@ -41,6 +40,8 @@ public class Canvas extends JComponent {
 		stroke = new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 		setColor(Color.BLACK);
 		clear = false;
+		Graphics g = image.getGraphics();
+		g2 = (Graphics2D) g;
 
 	}
 
@@ -76,8 +77,6 @@ public class Canvas extends JComponent {
 	}
 
 	public void setStrokeWidth(int wheelRotation) {
-		Graphics g = image.getGraphics();
-		g2 = (Graphics2D) g;
 
 		if (wheelRotation < 0) {
 			if ((stroke.getLineWidth() - 1) > 0) {
@@ -105,6 +104,8 @@ public class Canvas extends JComponent {
 		if (listener != null) {
 			clear = true;
 			image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+			Graphics g = image.getGraphics();
+			g2 = (Graphics2D) g;
 			repaint();
 		}
 	}

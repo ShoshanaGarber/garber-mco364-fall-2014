@@ -17,7 +17,7 @@ public class ListeningThread extends Thread{
 	public ListeningThread(Canvas canvas, Socket socket){
 		this.canvas = canvas;
 		this.socket = socket;
-		factory = new PaintMessageFactory();
+		factory = new PaintMessageFactory(canvas);
 	}
 	
 	@Override
@@ -34,6 +34,7 @@ public class ListeningThread extends Thread{
 				builder.append(line);
 				PaintMessage pm = factory.getMessage(line);
 				pm.apply(canvas.getGraphics());
+				canvas.repaint();
 			}
 			reader.close();
 
