@@ -1,23 +1,27 @@
 package garber.paint;
 
+import garber.paint.message.LineMessage;
+import garber.paint.message.PaintMessage;
+
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
-public class DrawPencilListener implements DrawListener{
+public class DrawPencilListener implements DrawListener {
 
 	private Canvas canvas;
 	private Integer x;
 	private Integer y;
 	private Integer prevx;
 	private Integer prevy;
-	
 
 	public DrawPencilListener(Canvas canvas) {
 		this.canvas = canvas;
 	}
-	
-	public void setPoint(Integer endx, Integer endy) {
-		
+
+	public void setPoint(Integer endx, Integer endy) throws IOException {
+		PaintMessage message;
+
 		if (x != null && y != null) {
 			prevx = x;
 			prevy = y;
@@ -32,14 +36,18 @@ public class DrawPencilListener implements DrawListener{
 		if (prevx != null && prevy != null) {
 
 			if (x.equals(prevx + 1) && y.equals(prevy + 1)) {
-				g2.fillOval(x, y, 5, 5);
 
+				message = new LineMessage(x, y, x, y, canvas.getColor().getRGB(), (int) canvas.getStrokeWidth());
+				canvas.getModule().sendMessage(message);
 			} else {
 
-				g2.drawLine(prevx + 1, prevy + 1, x, y);
+				message = new LineMessage(prevx + 1, prevy + 1, x, y, canvas.getColor().getRGB(),
+						(int) canvas.getStrokeWidth());
+				canvas.getModule().sendMessage(message);
 			}
 		} else {
-			g2.fillOval(x, y, 5, 5);
+			message = new LineMessage(x, y, x, y, canvas.getColor().getRGB(), (int) canvas.getStrokeWidth());
+			canvas.getModule().sendMessage(message);
 		}
 
 	}
@@ -52,13 +60,16 @@ public class DrawPencilListener implements DrawListener{
 
 	}
 
-	
-
 	@Override
 	public void mouseDragged(MouseEvent e) {// hold down the button
 		// the magic happens here
 
-		setPoint(e.getX(), e.getY());
+		try {
+			setPoint(e.getX(), e.getY());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		canvas.repaint();
 
 	}
@@ -72,38 +83,37 @@ public class DrawPencilListener implements DrawListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void drawPreview(Graphics2D g) {
-		
-		
+
 	}
-	
+
 
 }

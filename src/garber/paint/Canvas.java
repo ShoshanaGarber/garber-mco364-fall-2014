@@ -1,6 +1,9 @@
 package garber.paint;
 
 import garber.paint.message.ClientSide;
+import garber.paint.message.LoopBackNetworkModule;
+import garber.paint.message.NetworkModule;
+import garber.paint.message.OnlineNetworkModule;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -22,12 +25,14 @@ public class Canvas extends JComponent {
 	private BufferedImage image;
 	private DrawListener listener;
 	private boolean clear;
-	private OutputStream out;
 	private ClientSide client;
+	private NetworkModule module;
 
 	public Canvas() throws UnknownHostException, IOException {
 
 		client = new ClientSide(this);
+		module = new OnlineNetworkModule(client);
+		//module = new LoopBackNetworkModule(this);
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);//draw to buffered image and then buffered
 		                                                                 //image gets copied to the screen. 
 		                                                                 //buffered image is long term storage-graphics object from guffered image
@@ -44,11 +49,13 @@ public class Canvas extends JComponent {
 
 		super.paintComponent(g);
 		g.drawImage(image, 0, 0, null);
+		
 		if (listener != null && !clear) {
 			listener.drawPreview((Graphics2D) g);
 		} else {
 			clear = false;
 		}
+		
 
 	}
 
@@ -123,6 +130,11 @@ public class Canvas extends JComponent {
 	public ClientSide getClient(){
 		return client;
 		
+	}
+
+	public NetworkModule getModule() {
+		
+		return module;
 	}
 
 }

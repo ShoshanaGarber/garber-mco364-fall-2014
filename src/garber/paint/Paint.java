@@ -1,6 +1,5 @@
 package garber.paint;
 
-import garber.paint.message.ClientSide;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -9,9 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
 import java.net.UnknownHostException;
 
 import javax.swing.JButton;

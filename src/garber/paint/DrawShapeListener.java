@@ -1,6 +1,7 @@
 package garber.paint;
 
 
+import garber.paint.message.PaintMessage;
 import garber.paint.message.ShapeMessage;
 import garber.paint.message.Type;
 
@@ -16,6 +17,7 @@ public class DrawShapeListener implements DrawListener {
 	private int endx;
 	private int endy;
 	private Shape shape;
+
 
 	public DrawShapeListener(Canvas canvas, Shape shape) {
 		this.canvas = canvas;
@@ -88,33 +90,30 @@ public class DrawShapeListener implements DrawListener {
 		int x = Math.min(firstx, endx);
 		int y = Math.min(firsty, endy);
 		
-		ShapeMessage message;
-
+	
+		PaintMessage message;
+		
 		switch (shape) {
 
 		case Rect:
-			g2.drawRect(x, y, width, height);
 			message = new ShapeMessage(x, y, width, height, Type.RECT, Boolean.FALSE, canvas.getColor()
 					.getRGB(), (int) canvas.getStrokeWidth());
-			canvas.getClient().sendMessage(message.toString());
+			canvas.getModule().sendMessage(message);
 			break;
 		case Oval:
-			g2.drawOval(x, y, width, height);
 			message = new ShapeMessage(x, y, width, height, Type.OVAL, Boolean.FALSE, canvas.getColor()
 					.getRGB(), (int) canvas.getStrokeWidth());
-			canvas.getClient().sendMessage(message.toString());
+			canvas.getModule().sendMessage(message);
 			break;
 		case FillOval:
-			g2.fillOval(x, y, width, height);
 			message = new ShapeMessage(x, y, width, height, Type.OVAL, Boolean.TRUE, canvas.getColor()
 					.getRGB(), (int) canvas.getStrokeWidth());
-			canvas.getClient().sendMessage(message.toString());
+			canvas.getModule().sendMessage(message);
 			break;
 		case FillRectangle:
-			g2.fillRect(x, y, width, height);
 			message = new ShapeMessage(x, y, width, height, Type.RECT, Boolean.TRUE, canvas.getColor()
 					.getRGB(), (int) canvas.getStrokeWidth());
-			canvas.getClient().sendMessage(message.toString());
+			canvas.getModule().sendMessage(message);
 			break;
 
 		}
@@ -151,5 +150,6 @@ public class DrawShapeListener implements DrawListener {
 		}
 
 	}
+
 
 }

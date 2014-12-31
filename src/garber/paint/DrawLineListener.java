@@ -1,6 +1,7 @@
 package garber.paint;
 
 import garber.paint.message.LineMessage;
+import garber.paint.message.PaintMessage;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -74,10 +75,8 @@ public class DrawLineListener implements DrawListener {
 		Graphics2D g2 = (Graphics2D) canvas.getImage().getGraphics();
 		canvas.setGraphics(g2);
 		
-		g2.drawLine(x1, y1, x2, y2);
-		
-		LineMessage message = new LineMessage(x1, y1, x2, y2, canvas.getColor().getRGB(), (int) canvas.getStrokeWidth());
-		canvas.getClient().sendMessage(message.toString());
+		PaintMessage message = new LineMessage(x1, y1, x2, y2, canvas.getColor().getRGB(), (int) canvas.getStrokeWidth());
+		canvas.getModule().sendMessage(message);
 		
 
 	}
@@ -89,5 +88,6 @@ public class DrawLineListener implements DrawListener {
 		g.drawLine(x1, y1, x2, y2);
 
 	}
+
 
 }

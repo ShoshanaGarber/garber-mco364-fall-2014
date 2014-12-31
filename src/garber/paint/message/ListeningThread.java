@@ -12,28 +12,37 @@ public class ListeningThread extends Thread{
 	
 	private Socket socket;
 	private Canvas canvas;
+	private PaintMessageFactory factory;
 	
 	public ListeningThread(Canvas canvas, Socket socket){
 		this.canvas = canvas;
 		this.socket = socket;
-		
+		factory = new PaintMessageFactory();
 	}
 	
 	@Override
 	public void run(){
+		
+		BufferedReader reader;
+		
 		try {
 			InputStream in = socket.getInputStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			reader = new BufferedReader(new InputStreamReader(in));
 			StringBuilder builder = new StringBuilder();
 			String line;
 			while ((line = reader.readLine()) != null) {
 				builder.append(line);
+				PaintMessage pm = factory.getMessage(line);
+				pm.apply(canvas.getGraphics());
 			}
+			reader.close();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
+	
 
 }
