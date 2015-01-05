@@ -69,7 +69,7 @@ public class BucketFillMessage implements PaintMessage {
 
 			if ((p.x >= 0) && (p.x < canvas.getImage().getWidth() && (p.y >= 0) && (p.y < canvas.getImage().getHeight()))) {
 				if (!painted[p.y][p.x] && canvas.getImage().getRGB(p.x, p.y) == targetColor) {
-					canvas.getImage().setRGB(x,y,color);
+					canvas.getImage().setRGB(p.x,p.y,color);
 					
 					painted[p.y][p.x] = true;
 
