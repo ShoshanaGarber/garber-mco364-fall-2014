@@ -1,6 +1,5 @@
 package garber.paint;
 
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -47,15 +46,16 @@ public class Canvas extends JComponent {
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-		for(BufferedImage bf: images){
-			g.drawImage(bf, 0, 0, null);
+		for (int i = 0; i< images.length;i++) {
+			g.drawImage(images[i], 0, 0, null);
+			if (i == currentImage) {
+				if (listener != null && !clear) {
+					listener.drawPreview((Graphics2D) g);
+				} else {
+					clear = false;
+				}
 			}
-		if (listener != null && !clear) {
-			listener.drawPreview((Graphics2D) g);
-		} else {
-			clear = false;
 		}
-		
 
 	}
 
