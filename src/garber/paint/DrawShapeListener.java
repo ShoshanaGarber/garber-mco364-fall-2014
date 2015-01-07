@@ -88,33 +88,29 @@ public class DrawShapeListener implements DrawListener {
 		int x = Math.min(firstx, endx);
 		int y = Math.min(firsty, endy);
 
-		PaintMessage message;
+		PaintMessage message = null;
 
 		switch (shape) {
 
 		case Rect:
 			message = new ShapeMessage(Type.RECT, x, y, width, height, canvas.getColor().getRGB(),
 					(int) canvas.getStrokeWidth(), Boolean.FALSE);
-			canvas.getModule().sendMessage(message);
 			break;
 		case Oval:
 			message = new ShapeMessage(Type.OVAL, x, y, width, height,  canvas.getColor().getRGB(),
 					(int) canvas.getStrokeWidth(), Boolean.FALSE);
-			canvas.getModule().sendMessage(message);
 			break;
 		case FillOval:
 			message = new ShapeMessage(Type.OVAL, x, y, width, height,  canvas.getColor().getRGB(),
 					(int) canvas.getStrokeWidth(), Boolean.TRUE);
-			canvas.getModule().sendMessage(message);
 			break;
 		case FillRectangle:
 			message = new ShapeMessage(Type.RECT, x, y, width, height,  canvas.getColor().getRGB(),
 					(int) canvas.getStrokeWidth(), Boolean.TRUE);
-			canvas.getModule().sendMessage(message);
 			break;
 
 		}
-
+		canvas.getModule().sendMessage(message);
 	}
 
 	@Override

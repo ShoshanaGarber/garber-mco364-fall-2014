@@ -21,7 +21,7 @@ public class PaintMessageFactory {
 					Integer.parseInt(messagesDesc[5]), Integer.parseInt(messagesDesc[6]),
 					Integer.parseInt(messagesDesc[7]), Boolean.parseBoolean(messagesDesc[8]));
 		} else if (messagesDesc[0].equals("CLEAR")) {
-			paintMessage = new ClearMessage();
+			paintMessage = new ClearMessage(canvas);
 		} else if (messagesDesc[0].equals("BUCKET_FILL")) {
 			paintMessage = new BucketFillMessage(Integer.parseInt(messagesDesc[1]), Integer.parseInt(messagesDesc[2]),
 					Integer.parseInt(messagesDesc[3]), canvas);

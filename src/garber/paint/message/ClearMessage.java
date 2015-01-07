@@ -1,11 +1,15 @@
 package garber.paint.message;
 
+import garber.paint.Canvas;
+
 import java.awt.Graphics2D;
 
 public class ClearMessage implements PaintMessage{
 	
-	public ClearMessage(){
-		
+	private Canvas canvas;
+	
+	public ClearMessage(Canvas canvas){
+		this.canvas = canvas;
 	}
 	
 	
@@ -15,8 +19,8 @@ public class ClearMessage implements PaintMessage{
 
 	@Override
 	public void apply(Graphics2D g) {
-		g.fillRect(0, 0, 800, 600);
-		
+
+		canvas.clearCanvas();
 	}
 
 }

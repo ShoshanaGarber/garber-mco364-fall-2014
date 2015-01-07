@@ -24,24 +24,26 @@ public class ListeningThread extends Thread {
 	@Override
 	public void run() {
 
-
 		try {
 			InputStream in = socket.getInputStream();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			StringBuilder builder = new StringBuilder();
 			String line;
 			while ((line = reader.readLine()) != null) {
-				builder.append(line);
-				PaintMessage pm = factory.getMessage(line);
-				if (pm != null) {
-					pm.apply((Graphics2D) canvas.getImage().getGraphics());
-					canvas.repaint();
+				try {
+					builder.append(line);
+					PaintMessage pm = factory.getMessage(line);
+					if (pm != null) {
+						pm.apply((Graphics2D) canvas.getImage().getGraphics());
+						canvas.repaint();
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					continue;
+
 				}
 			}
-			
-
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

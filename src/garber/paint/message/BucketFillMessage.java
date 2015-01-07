@@ -67,7 +67,10 @@ public class BucketFillMessage implements PaintMessage {
 		while (!queue.isEmpty()) {
 			Point p = queue.remove();
 
-			if ((p.x >= 0) && (p.x < canvas.getImage().getWidth() && (p.y >= 0) && (p.y < canvas.getImage().getHeight()))) {
+			if (p.x >= 0 && 
+					p.x < canvas.getImage().getWidth() && 
+					p.y >= 0 && 
+					p.y < canvas.getImage().getHeight()) {
 				if (!painted[p.y][p.x] && canvas.getImage().getRGB(p.x, p.y) == targetColor) {
 					canvas.getImage().setRGB(p.x,p.y,color);
 					

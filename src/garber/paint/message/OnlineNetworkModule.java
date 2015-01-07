@@ -1,13 +1,17 @@
 package garber.paint.message;
 
+import garber.paint.Canvas;
+
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 public class OnlineNetworkModule implements NetworkModule {
 	
 	private ClientSide client;
+	private Canvas canvas;
 	
-	public OnlineNetworkModule(ClientSide client){
-		this.client = client;
+	public OnlineNetworkModule(Canvas canvas) throws UnknownHostException, IOException{
+		this.client = new ClientSide(canvas);
 	}
 
 	@Override

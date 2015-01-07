@@ -20,7 +20,7 @@ public class DrawPencilListener implements DrawListener {
 	}
 
 	public void setPoint(Integer endx, Integer endy) throws IOException {
-		PaintMessage message;
+		PaintMessage message = null;
 
 		if (x != null && y != null) {
 			prevx = x;
@@ -36,20 +36,15 @@ public class DrawPencilListener implements DrawListener {
 		if (prevx != null && prevy != null) {
 
 			if (x.equals(prevx + 1) && y.equals(prevy + 1)) {
-
 				message = new LineMessage(x, y, x, y, canvas.getColor().getRGB(), (int) canvas.getStrokeWidth());
-				canvas.getModule().sendMessage(message);
 			} else {
-
 				message = new LineMessage(prevx + 1, prevy + 1, x, y, canvas.getColor().getRGB(),
 						(int) canvas.getStrokeWidth());
-				canvas.getModule().sendMessage(message);
 			}
 		} else {
 			message = new LineMessage(x, y, x, y, canvas.getColor().getRGB(), (int) canvas.getStrokeWidth());
-			canvas.getModule().sendMessage(message);
 		}
-
+		canvas.getModule().sendMessage(message);
 	}
 
 	public void resetPoints() {
@@ -114,6 +109,5 @@ public class DrawPencilListener implements DrawListener {
 	public void drawPreview(Graphics2D g) {
 
 	}
-
 
 }

@@ -24,13 +24,11 @@ public class Canvas extends JComponent {
 	private BufferedImage image;
 	private DrawListener listener;
 	private boolean clear;
-	private ClientSide client;
 	private NetworkModule module;
 
 	public Canvas() throws UnknownHostException, IOException {
 
-		client = new ClientSide(this);
-		module = new OnlineNetworkModule(client);
+		module = new OnlineNetworkModule(this);
 		//module = new LoopBackNetworkModule(this);
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);//draw to buffered image and then buffered
 		                                                                 //image gets copied to the screen. 
@@ -127,10 +125,6 @@ public class Canvas extends JComponent {
 		return g2;
 	}
 	
-	public ClientSide getClient(){
-		return client;
-		
-	}
 
 	public NetworkModule getModule() {
 		
